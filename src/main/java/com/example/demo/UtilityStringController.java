@@ -1,5 +1,6 @@
 package com.example.demo;
 
+
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ public class UtilityStringController {
 
     @GetMapping("string/{text}/{format}")
     public String getStatistics(@PathVariable("format") String format,
-                                @PathVariable("text") String text) {
+                                @PathVariable("text") String text){
 
         StringBuilder stats = new StringBuilder();
         RestTemplate restTemplate = new RestTemplate();
@@ -38,23 +39,22 @@ public class UtilityStringController {
     }
 
     private String getXMLString(String text, StringBuilder stats, RestTemplate restTemplate) {
-        stats.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>").append(System.lineSeparator());
         stats.append("<stats>\n");
-        stats.append("<lowercase>\n");
+        stats.append("<lowercase>");
         stats.append(restTemplate.getForObject(lowerCaseAPI+ text,String.class));
-        stats.append("\n</lowercase>\n");
-        stats.append("<uppercase>\n");
+        stats.append("</lowercase>\n");
+        stats.append("<uppercase>");
         stats.append(restTemplate.getForObject(upperCaseAPI+ text,String.class));
-        stats.append("\n</lowercase>\n");
-        stats.append("<whiteSpaces>\n");
+        stats.append("</uppercase>\n");
+        stats.append("<whiteSpaces>");
         stats.append(restTemplate.getForObject(whiteSpacesApi+ text,String.class));
-        stats.append("\n</whiteSpaces>\n");
-        stats.append("<numbers>\n");
+        stats.append("</whiteSpaces>\n");
+        stats.append("<numbers>");
         stats.append(restTemplate.getForObject(numbersAPI+ text,String.class));
-        stats.append("\n</numbers>\n");
-        stats.append("<specialCharacters>\n");
+        stats.append("</numbers>\n");
+        stats.append("<specialCharacters>");
         stats.append(restTemplate.getForObject(specialCharactersAPI+ text,String.class));
-        stats.append("\n<specialCharacters>\n");
+        stats.append("<specialCharacters>\n");
         stats.append("</stats>\n");
         String result = String.valueOf(stats);
         return result;
