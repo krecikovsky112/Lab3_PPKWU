@@ -5,29 +5,29 @@ API for displaying information about a given string, such as the number of digit
 
 <h2>Syntax</h2>
 
-<h4>CSV</h4>
-Request:
+<h3>CSV</h3>
+<h5>Request:</h5>
 
 localhost:8081/string_utility_controller/string/sdsdaAAa/csv
 
-Response:
+<h5>Response:</h5>
 
 lowerCase,upperCase,whiteSpaces,numbers,specialCharacters 6, 2, 0, 0, 0
 
-<h4>JSON</h4>
-Request:
+<h3>JSON</h3>
+<h5>Request:</h5>
 
 localhost:8081/string_utility_controller/string/sdsdaAAa/json
 
-Response:
+<h5>Response:</h5>
 
 {"upperCase":"2","lowerCase":"6","whiteSpaces":"0","numbers":"0","specialCharacters":"0"}
 
-<h4>XML</h4>
-Request:
+<h3>XML</h3>
+<h5>Request:</h5>
 
 localhost:8081/string_utility_controller/string/sdsdaAAa/xml
 
-Response:
+<h5>Response:</h5>
 
 6 2 0 0 0
