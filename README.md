@@ -3,9 +3,9 @@
 
 API for displaying information about a given string, such as the number of digits, the number of special characters, etc. in three formats: JSON, XML and CSV.
 
-##Syntax
+<h2>Syntax</h2>
 
-####CSV
+<h4>CSV</h4>
 Request:
 
 localhost:8081/string_utility_controller/string/sdsdaAAa/csv
@@ -14,7 +14,7 @@ Response:
 
 lowerCase,upperCase,whiteSpaces,numbers,specialCharacters 6, 2, 0, 0, 0
 
-####JSON
+<h4>JSON</h4>
 Request:
 
 localhost:8081/string_utility_controller/string/sdsdaAAa/json
@@ -23,7 +23,7 @@ Response:
 
 {"upperCase":"2","lowerCase":"6","whiteSpaces":"0","numbers":"0","specialCharacters":"0"}
 
-####XML
+<h4>XML</h4>
 Request:
 
 localhost:8081/string_utility_controller/string/sdsdaAAa/xml
