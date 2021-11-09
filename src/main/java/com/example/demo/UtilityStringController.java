@@ -19,7 +19,7 @@ public class UtilityStringController {
 
     @GetMapping("string/{text}/{format}")
     public String getStatistics(@PathVariable("format") String format,
-                                @PathVariable("text") String text){
+                                @PathVariable("text") String text) {
 
         StringBuilder stats = new StringBuilder();
         RestTemplate restTemplate = new RestTemplate();
@@ -27,22 +27,45 @@ public class UtilityStringController {
         if(format.equals("csv")){
             return getStringCSV(text, stats, restTemplate);
         }
+        else if(format.equals("xml")){
+            return getXMLString(text, stats, restTemplate);
+        }
         else if(format.equals("json")){
             return getJsonObject(text, restTemplate);
         }
-        return "Test";
+
+        return "Bad format!";
+    }
+
+    private String getXMLString(String text, StringBuilder stats, RestTemplate restTemplate) {
+        stats.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>").append(System.lineSeparator());
+        stats.append("<stats>\n");
+        stats.append("<lowercase>\n");
+        stats.append(restTemplate.getForObject(lowerCaseAPI+ text,String.class));
+        stats.append("\n</lowercase>\n");
+        stats.append("<uppercase>\n");
+        stats.append(restTemplate.getForObject(upperCaseAPI+ text,String.class));
+        stats.append("\n</lowercase>\n");
+        stats.append("<whiteSpaces>\n");
+        stats.append(restTemplate.getForObject(whiteSpacesApi+ text,String.class));
+        stats.append("\n</whiteSpaces>\n");
+        stats.append("<numbers>\n");
+        stats.append(restTemplate.getForObject(numbersAPI+ text,String.class));
+        stats.append("\n</numbers>\n");
+        stats.append("<specialCharacters>\n");
+        stats.append(restTemplate.getForObject(specialCharactersAPI+ text,String.class));
+        stats.append("\n<specialCharacters>\n");
+        stats.append("</stats>\n");
+        String result = String.valueOf(stats);
+        return result;
     }
 
     private String getStringCSV(String text, StringBuilder stats, RestTemplate restTemplate) {
-        stats.append("LowerCase: ");
+        stats.append("lowerCase,upperCase,whiteSpaces,numbers,specialCharacters\n");
         stats.append(restTemplate.getForObject(lowerCaseAPI+ text,String.class)).append(", ");
-        stats.append("UpperCase: ");
         stats.append(restTemplate.getForObject(upperCaseAPI+ text,String.class)).append(", ");
-        stats.append("White spaces: ");
         stats.append(restTemplate.getForObject(whiteSpacesApi+ text,String.class)).append(", ");
-        stats.append("Numbers: ");
         stats.append(restTemplate.getForObject(numbersAPI+ text,String.class)).append(", ");
-        stats.append("Special characters: ");
         stats.append(restTemplate.getForObject(specialCharactersAPI+ text,String.class));
 
         return String.valueOf(stats);
